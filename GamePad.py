@@ -81,7 +81,7 @@ for event in gamepad.read_loop():
                     print("Joystick Iz - Abajo")
                 elif absevent.event.value == -129:
                     print("Joystick Iz - Centrado")     
-# Joystick izquierdo
+# Joystick derecho
             elif event.type == ecodes.EV_ABS:
                 absevent = categorize(event)
                 if ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_RX":
