@@ -48,53 +48,91 @@ for event in gamepad.read_loop():
                 print("Presion derecha")
             elif event.code == HATOY:
                 print("Presion derecha")
-        #elif event.value == 0:
-            #print("Suelto")
+        elif event.value == 0:
+            print("Suelto")
 #Gatillo izquierdo
     elif event.type == ecodes.EV_ABS:
         absevent = categorize(event)
         if ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_Z":
+            if absevent.event.value != 0:
+                print("Gatillo izquierdo activo oscilante")
             if absevent.event.value == 255:
-                print("Gatillo izquierdo encendido")
+                print("Gatillo izquierdo maximo")
             elif absevent.event.value == 0:
                 print("Gatillo izquierdo apagado")
 #Gatillo derecho
         elif ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_RZ":
+            if absevent.event.value != 0:
+                print("Gatillo derecho activo oscilante")
             if absevent.event.value == 255:
-                print("Gatillo derecho encendido")
+                print("Gatillo derecho maximo")
             elif absevent.event.value == 0:
                 print("Gatillo derecho apagado")
 # Joystick izquierdo
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
             if ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_X":
+                if absevent.event.value <= 127:
+                    print("Joystick Iz - Izquierda oscilante")
                 if absevent.event.value == -32768:
-                    print("Joystick Iz - Izquierda")
-                elif absevent.event.value == 32767:
-                    print("Joystick Iz - Derecha")
+                    print("Joystick Iz - Izquierda maximo")
+                elif absevent.event.value >= 129:
+                    print("Joystick Iz - Derecha oscilante")
+                if absevent.event.value == 32767:
+                    print("Joystick Iz - Derecha maximo")
                 elif absevent.event.value == 128:
                     print("Joystick Iz - Centrado")
             elif ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_Y":
+                if absevent.event.value <= -130:
+                    print("Joystick Iz - Arriba oscilante")
                 if absevent.event.value == -32768:
-                    print("Joystick Iz - Arriba")
-                elif absevent.event.value == 32767:
-                    print("Joystick Iz - Abajo")
+                    print("Joystick Iz - Arriba maximo")
+                elif absevent.event.value >= -128:
+                    print("Joystick Iz - Abajo oscilante")
+                if absevent.event.value == 32767:
+                    print("Joystick Iz - Abajo maximo")
                 elif absevent.event.value == -129:
                     print("Joystick Iz - Centrado")     
 # Joystick derecho
             elif event.type == ecodes.EV_ABS:
                 absevent = categorize(event)
                 if ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_RX":
+                    if absevent.event.value <= 127:
+                        print("Joystick Der - Izquierda oscilante")
                     if absevent.event.value == -32768:
-                        print("Joystick Der - Izquierda")
-                    elif absevent.event.value == 32767:
-                        print("Joystick Der - Derecha")
+                        print("Joystick Der - Izquierda maxima")
+                    elif absevent.event.value >= 129:
+                        print("Joystick Der - Derecha oscilante")
+                        if absevent.event.value == 32767:
+                            print("Joystick Der - Derecha maxima")
                     elif absevent.event.value == 128:
                         print("Joystick Der - Centrado")
                 elif ecodes.bytype[absevent.event.type][absevent.event.code] == "ABS_RY":
+                    if absevent.event.value <= -130:
+                        print("Joystick Der - Arriba oscilante")
                     if absevent.event.value == -32768:
-                        print("Joystick Der - Arriba")
-                    elif absevent.event.value == 32767:
-                        print("Joystick Der - Abajo")
+                        print("Joystick Der - Arriba maximo")
+                    elif absevent.event.value >= -128:
+                        print("Joystick Der - Abajo oscilante")
+                    if absevent.event.value == 32767:
+                        print("Joystick Der - Abajo maximo")
                     elif absevent.event.value == -129:
                         print("Joystick Der - Centrado")
+
+                elif event.type == ecodes.EV_ABS:
+                    if event.code == ecodes.ABS_HAT0X:
+                        # Procesa el evento de ABS_HAT0X (eje X)
+                        if absevent.event.value == -1:
+                            print("Flecha izquierda activa")
+                        if absevent.event.value == 1:
+                            print("Flecha derecha activa")
+                        if absevent.event.value == 0:
+                            print("Flecha suelta")
+                    elif event.code == ecodes.ABS_HAT0Y:
+                        # Procesa el evento de ABS_HAT0Y (eje Y)
+                        if absevent.event.value == -1:
+                            print("Flecha arriba activa")
+                        if absevent.event.value == 1:
+                            print("Flecha abajo activa")
+                        if absevent.event.value == 0:
+                            print("Flecha suelta")
